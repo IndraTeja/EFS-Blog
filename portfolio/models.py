@@ -1,7 +1,7 @@
-
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
@@ -15,7 +15,6 @@ class Customer(models.Model):
     created_date = models.DateTimeField(
         default=timezone.now)
     updated_date = models.DateTimeField(auto_now_add=True)
-
 
     def created(self):
         self.created_date = timezone.now()
@@ -52,6 +51,7 @@ class Investment(models.Model):
     def results_by_investment(self):
         return self.recent_value - self.acquired_value
 
+
 class Stock(models.Model):
     customer = models.ForeignKey(Customer, related_name='stocks')
     symbol = models.CharField(max_length=10)
@@ -71,3 +71,22 @@ class Stock(models.Model):
         return self.shares * self.purchase_price
 
 
+class Mutualfund(models.Model):
+    customer = models.ForeignKey(Customer, related_name='mutualfunds')
+    category = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    shares = models.DecimalField(max_digits=10, decimal_places=1)
+    purchased_value = models.DecimalField(max_digits=10, decimal_places=2)
+    purchased_date = models.DateField(default=timezone.now)
+    recent_value = models.DecimalField(max_digits=10, decimal_places=2)
+    recent_date = models.DateField(default=timezone.now, blank=True, null=True)
+
+    def created(self):
+        self.recent_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return str(self.customer)
+
+    def results_by_mutualfund(self):
+        return self.recent_value - self.purchased_value

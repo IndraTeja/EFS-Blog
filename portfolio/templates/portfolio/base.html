@@ -14,33 +14,28 @@
             margin-bottom: 0;
             border-radius: 0;
         }
-
-        /* Set heig ht of the grid so .sidenav can be 100% (adjust as needed) */
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
             height: 450px
         }
-
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
             background-color: #f1f1f1;
             height: 100%;
         }
-
         /* Set black background color, white text and some padding */
         footer {
             background-color: #555;
             color: white;
             padding: 15px;
         }
-
         /* On small screens, set height to 'auto' for sidenav and grid */
         @media screen and (max-width: 767px) {
             .sidenav {
                 height: auto;
                 padding: 15px;
             }
-
             .row.content {
                 height: auto;
             }
@@ -72,6 +67,7 @@
                 <li><a href="{% url 'portfolio:customer_list' %}">Customers</a></li>
                 <li><a href="{% url 'portfolio:investment_list' %}">Investments</a></li>
                 <li><a href="{% url 'portfolio:stock_list' %}">Stocks</a></li>
+                <li><a href="{% url 'portfolio:mutualfund_list' %}">MutualFunds</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
@@ -126,6 +122,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <img src="{% static "images/mutualfund.jpg" %}" alt="fund"/>
+                                        <div class="caption">
+                                            <h2>Mutual Funds</h2>
+                                            <p>Investment that uses money from many investors to invest in stocks, bonds or other types of investment.</p>
+                                            <p><a class="btn btn-primary" href="{% url 'portfolio:mutualfund_list' %}"
+                                                  role="button">View
+                                                details &raquo;</a></p>
+                                        </div>
+                                    </div>
+                                </div>
                         <div class="col-md-3">
                             <div class="thumbnail">
                                 <img src="{% static "images/stocks.jpg" %}" alt="stocks"/>
