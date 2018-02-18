@@ -7,13 +7,10 @@ from .forms import *
 from django.db.models import Sum
 from django.views.decorators.csrf import csrf_protect
 
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CustomerSerializer
-
-
 
 #registration
 #from django.shortcuts import render_to_response
@@ -33,6 +30,9 @@ from django.contrib.auth import (
     logout as auth_logout, update_session_auth_hash,
 )
 
+# currency_converter
+import urllib.request
+import json
 
 # List at the end of the views.py
 # Lists all customers
@@ -291,3 +291,29 @@ def password_reset_email(request):
 def password_reset_complete(request):
     return render(request, 'home/password_reset_complete.html',
     {'home': password_reset_complete})
+
+# CurrencyConverter
+
+class CurrencyConverter:
+
+    rates = {}
+
+    def __init__(self, url):
+        req = urllib.request.Request(url, headers={'User-Agent': 'howCode Currency Bot'})
+        data = urllib.request.urlopen(req).read()
+        data = json.loads(data.decode('utf-8'))
+        self.rates = data["rates"]
+
+    def convert(self, amount, from_currency, to_currency):
+        initial_amount = amount
+        if from_currency != "USD":
+            amount = amount / self.rates[from_currency]
+        if to_currency == "USD":
+            return initial_amount, from_currency, '=', amount, to_currency
+        else:
+            return initial_amount, from_currency, '=', amount * self.rates[to_currency], to_currency
+
+converter = CurrencyConverter("https://api.fixer.io/latest?base=USD")
+
+
+print(converter.convert(1.0, "EUR", "USD"))
