@@ -10,8 +10,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-
+    <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Ubuntu:400,700" rel="stylesheet">
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -70,11 +71,11 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="/" style="font-family: 'Copperplate Gothic Bold'">
+            <a class="navbar-brand" href="/" style="font-family: 'Lobster', cursive; font-size: x-large">
                 Eagle Financial Services
             </a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar" style="font-family: 'Copperplate Gothic Bold'" >
+        <div class="collapse navbar-collapse" id="myNavbar" style="font-family: 'Ubuntu', sans-serif;font-size: medium" >
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'portfolio:home' %}">Home</a></li>
                 <li><a href="{% url 'portfolio:customer_list' %}">Customers</a></li>
@@ -94,7 +95,7 @@
                     </li>
                 {% else %}
                     <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a href="{% url 'portfolio:register' %}">Register</a></li>
+                    <li><a href="{% url 'portfolio:register' %}">New Registration</a></li>
                     <li><a href="{% url 'password_reset' %}">Reset Password</a></li>
                 {% endif %}
             </ul>

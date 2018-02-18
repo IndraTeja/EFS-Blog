@@ -4,7 +4,15 @@
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
-    <body style="background-color:powderblue;">
+    <body style="background-color:#e5e6ae;">
+
+<div class="_image"><img src="http://wdyogesh.com/images/ulogin.png" width="30%" height="30%"></div>
+
+    <div class="_welcome"><h2 style="text-align: left; padding-left: 30%"><strong>Welcome to EFS Login page</strong></h2></div>
+
+    <br>
+
+    <div style="border-style: groove; border-width: thick; padding: 4%; align-content: center; color: #000000">
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <table>
@@ -17,7 +25,8 @@
                 <td>{{ form.password }}</td>
             </tr>
         </table>
-        <input type="submit" value="login"/>
+        <input type="submit" value="Login"/>
         <input type="hidden" name="next" value="{{ next }}"/>
     </form>
+    </div>
 {% endblock %}

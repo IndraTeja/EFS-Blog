@@ -36,9 +36,9 @@ class MutualfundForm(forms.ModelForm):
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=30)
-    email = forms.EmailField(label='Email')
+    email = forms.EmailField(label='E-mail')
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Password (Again)',  widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Confirm Password',  widget=forms.PasswordInput())
 
     #password validation
     def clean_password2(self):
