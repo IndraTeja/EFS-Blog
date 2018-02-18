@@ -1,3 +1,14 @@
+@CHARSET "UTF-8";
+.page-break {
+			page-break-after: always;
+			page-break-inside: avoid;
+			clear:both;
+		}
+.page-break-before {
+			page-break-before: always;
+			page-break-inside: avoid;
+			clear:both;
+		}
 
 body {
     padding-left: 15px;
@@ -6,4 +17,11 @@ body {
 h1 a {
     color: #FCA205;
     font-family: 'cursive';
+
 }
+    ._head {
+    background-color: tomato;
+    color: white;
+    padding: 10px;
+}
+

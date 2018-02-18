@@ -5,11 +5,34 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.db.models import Sum
+from django.views.decorators.csrf import csrf_protect
+
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CustomerSerializer
+
+
+
+#registration
+#from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+
+from django.contrib.auth.forms import PasswordChangeForm
+from django.template.response import TemplateResponse
+from django.shortcuts import resolve_url
+from django.urls import reverse, reverse_lazy
+from django.utils.deprecation import (
+    RemovedInDjango20Warning, RemovedInDjango21Warning,
+)
+import warnings
+from django.contrib.auth import (
+    REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
+    logout as auth_logout, update_session_auth_hash,
+)
+
 
 # List at the end of the views.py
 # Lists all customers
@@ -211,6 +234,7 @@ def portfolio(request, pk):
     customers = Customer.objects.filter(created_date__lte=timezone.now())
     investments = Investment.objects.filter(customer=pk)
     stocks = Stock.objects.filter(customer=pk)
+    mutualfunds = Mutualfund.objects.filter(customer=pk)
     sum_acquired_value = Investment.objects.filter(customer=pk).aggregate(Sum('acquired_value'))
     sum_recent_value = Investment.objects.filter(customer=pk).aggregate(Sum('recent_value'))
 
@@ -225,7 +249,45 @@ def portfolio(request, pk):
 
     return render(request, 'portfolio/portfolio.html', {'customers': customers, 'investments': investments,
                                                         'stocks': stocks,
+                                                        'mutualfunds': mutualfunds,
                                                         'sum_acquired_value': sum_acquired_value,
                                                         'sum_recent_value': sum_recent_value,
                                                         'sum_current_stocks_value': sum_current_stocks_value,
                                                         'sum_of_initial_stock_value': sum_of_initial_stock_value})
+
+
+@csrf_protect
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                            password=form.cleaned_data['password1'],
+                                            email=form.cleaned_data['email'])
+            #return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/register/success/')
+    else:
+        form = RegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+
+def register_success(request):
+    return render(request, 'registration/success.html',  )
+
+
+def password_reset(request):
+    return render(request, 'home/password_reset.html',
+    {'home': password_reset})
+
+
+def password_reset_confirm(request):
+    return render(request, 'home/password_reset_confirm.html',
+    {'home': password_reset_confirm})
+
+def password_reset_email(request):
+    return render(request, 'home/password_reset_email.html',
+    {'home': password_reset_email})
+
+def password_reset_complete(request):
+    return render(request, 'home/password_reset_complete.html',
+    {'home': password_reset_complete})

@@ -26,6 +26,16 @@ SECRET_KEY = '7me6qr6q0a3+iu_^j^ohicfq@c5uu&5sw7yr0$3r7rb21_szp5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+if DEBUG:
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = 'indra.unomaha@gmail.com'
+    EMAIL_HOST_PASSWORD = 'Omaha123'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = 'indra.unomaha@gmail.com'
+
+
 ALLOWED_HOSTS = []
 
 
@@ -123,3 +133,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+

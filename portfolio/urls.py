@@ -26,6 +26,12 @@ urlpatterns = [
     url(r'^mutualfund/create/$', views.mutualfund_new, name='mutualfund_new'),
     url(r'^customers_json/', views.CustomerList.as_view()),
 
+    # url(r'^customers_json/', views.CustomerList.as_view()),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^register/success/$', views.register_success, name='success'),
+
+    # password reset
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
